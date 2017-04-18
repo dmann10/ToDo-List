@@ -1,0 +1,54 @@
+body {
+	font-family: arial;
+}
+
+#main {
+	padding: 150px 450px;
+}
+
+/*Task bar and Add Button*/
+#task {
+	display: inline-block;
+	margin: 0px 5px 0px 5px;
+	padding-left: 5px;
+	width: 250px;
+	height: 23px;
+	font-size: 12px;
+	border: 1px solid grey;
+	border-radius: 2px;
+	color: #808080;
+}
+
+#button {
+	background-color: #4CAF50;
+	border: none;
+	border-radius: 5px;
+	padding: 6px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	font-weight: bold;
+	margin-left: 5px;
+	cursor: pointer;
+	color: white;
+}
+
+/* List of Tasks */
+#listBox {
+	width: 350px;
+	min-height: 200px;
+	border: 1px solid black;
+	border-radius: 2px;
+	font-size: 14px;
+	text-align: left;
+	margin: 0px 5px;
+}
+
+#taskList {
+	list-style: none;
+	padding: 0px 0px 0px 5px;
+	margin: 5px 5px;
+	display: inline-block;
+	font-weight: bold;
+}
