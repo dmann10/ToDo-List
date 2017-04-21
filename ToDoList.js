@@ -1,157 +1,70 @@
-/* Click on input bar */
-var input = document.getElementById("task");
-input.onfocus = function() {
-	if (input.value == "To-Do") 
+/* Click on/off input bar */
+$("#txtbxNewTask").focus(function() {
+	if($(this).val() != "") 
 	{
-		input.value = "";
-		input.style.color="black";
+		$(this).val("").css("color", "black");
 	}
-};
-input.onblur = function() {
-	if (input.value == "")
+});
+$("#txtbxNewTask").blur(function() {
+	if($(this).val() == "") 
 	{
-		input.value = "To-Do";
-		input.style.color="#808080";
+		$(this).val("To-Do").css("color", "#808080");
 	}
-};
+});
 
 /* Enter new task */
-var button = document.getElementById("button");
-input.onkeypress = function(keypress) {
-	if (keypress.keyCode == 13)
+// Press Enter
+$("#txtbxNewTask").keypress(function(ev) {
+	if(ev.keyCode == 13) 
 	{
-		keypress.preventDefault()
-		if(task.value != "")
-			pressButton();
+		ev.preventDefault();
+		if($(this).val() != "")
+		{
+			addToList();
+			$(this).val("");
+		}
 	}
-};
+});
 
-button.onclick = function() {	
-	pressButton();
-};
-
-function pressButton() {
+//Press Add Button
+$("#btnAddNewTask").click(function() {
 	addToList();
-	input.value = "";
-	input.focus();
-	input.blur();
-};
+	$("#txtbxNewTask").focus();
+});
 
-/* Add task to list */
-var list = document.getElementById("taskList")
+/* Add Task to List */
 function addToList() {
-	var node = document.createElement("li");
-		node.style.width = "400px";
-		node.className = "item";
-	
-	var checkbox = document.createElement("input");
-		styleCheckbox(checkbox);
-	node.appendChild(checkbox);
-	
-	var item = document.inputForm.task.value;
-	var p = document.createElement("p");
-		p.className = "text";
-		p.style.display = "inline-block";
-		p.style.width = "200px";
-		p.style.padding = "2.5px 0px";
-		p.style.margin = "5px 0px 5px 0px";
-		p.style.textDecoration = "none";
-	var textNode = document.createTextNode(item);
-	p.appendChild(textNode);
-	node.appendChild(p);	
-		node.style.fontSize = "14px";
-		node.style.fontWeight = "bold";
-	
-	addLinks(node);
-	
-	list.appendChild(node);
-	
-	editTask(list);
-	checkItemOff(list);
-	removeFunction(list);
+	var newListItem = $("<li class='listItem'></li>")
+	newListItem.append("<input type='checkbox' class='checkbox' value=1 name='check'></input><label></label>");
+	newListItem.append("<p class='task'>" + $("#txtbxNewTask").val() + "</p>");
+	newListItem.append("<a href='#' class='editLink'>edit</a>");
+	newListItem.append("<a href='#' class='deleteLink'>delete</a>");
+	$("#taskList").append(newListItem);
 };
 
-function addLinks(node) {
-	var edit = document.createElement("a");
-		edit.href = "#";
-		edit.className = "edit";
-		edit.style.padding = "2px 5px";
-		edit.style.borderRight = "1px solid #157dec";
-		edit.style.color = "#157dec";
-	var textEdit = document.createTextNode("edit");
-	edit.appendChild(textEdit);
-	node.appendChild(edit);
-	
-	var del = document.createElement("a");
-		del.href = "#";
-		del.className = "delete";
-		del.style.padding = "2px 5px";
-		del.style.color = "#157dec";
-	var textDel = document.createTextNode("delete");
-	del.appendChild(textDel);
-	node.appendChild(del);
-	return node;
-};
+/* Check off task when checkbox is clicked */
+$("#taskList").on("click", ".checkbox", function() {
+	$(this).siblings("p").toggleClass("checkItemOff");
+});
 
-function styleCheckbox(checkbox) {
-	checkbox.type = "checkbox";
-	checkbox.className = "checkbox";
-	checkbox.value = 1;
-	checkbox.name = "todo";
-	checkbox.style.margin = "5px 25px 0px 0px";
-	checkbox.style.height = "20px";
-	checkbox.style.width = "20px";
-	checkbox.style.cursor = "pointer";
-};
+/* Allow user to edit a task after the edit link is clicked */
+$("#taskList").on("click", ".editLink", function() {
+	var task = $(this).siblings("p");
+	task.attr("contenteditable", true).focus();
+	task.on("keypress", function(ev) {
+		if(ev.keyCode == 13)
+		{
+			ev.preventDefault();
+			task.blur();
+		}
+	});
+	task.blur(function() {
+		task.attr("contenteditable", false);
+	});
+});
 
-function checkItemOff(list) {
-	var check = list.getElementsByClassName("checkbox");
-	for (var i = 0; i < check.length; i++) 
-	{
-		check[i].onclick = function() {
-	    	var item = this.parentElement;
-	    	var text = item.getElementsByTagName("p");
-	    	if(text[0].style.textDecoration == "none")
-	    		text[0].style.textDecoration = "line-through";
-	    	else
-	    		text[0].style.textDecoration = "none";
-	  };
-	}
-};
-
-function editTask(list) {
-	var edit = list.getElementsByClassName("edit");
-	for(var i = 0; i < edit.length; i++)
-	{
-		edit[i].onclick = function() {
-			var item = this.parentElement;
-			var text = item.getElementsByTagName("p");
-			text[0].setAttribute("contenteditable", true);
-			text[0].focus();
-			text[0].onkeypress = function(e) {
-				if (e.keyCode == 13) 
-				{
-					e.preventDefault();
-					text[0].blur();
-				}
-			};
-			text[0].onblur = function() {
-				text[0].setAttribute("contenteditable", false);
-			};
-		};
-	}
-};
-
-function removeFunction(list) {
-	var remove = list.getElementsByClassName("delete");
-	for (var i = 0; i < remove.length; i++) 
-	{
-		remove[i].onclick = function() {
-	    	var item = this.parentElement;
-	    	item.style.display = "none";
-	  };
-	}
-};
-
-
-
+/* Deletes task if user clicks the delete link */
+$("#taskList").on("click", ".deleteLink", function(ev) {
+	ev.preventDefault();
+	$(this).parent().remove();
+});
