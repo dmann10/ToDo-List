@@ -67,10 +67,6 @@ body {
 	text-decoration: none;
 }
 
-.checkItemOff {
-	text-decoration: line-through;
-}
-
 .checkbox {
 	margin: 5px 25px 0px 0px;
 	height: 20px;
@@ -78,7 +74,7 @@ body {
 	cursor: pointer;
  	position: relative;
  	top: 5px;
-    border-radius: 2px;
+        border-radius: 2px;
 }
 
 .editLink {
