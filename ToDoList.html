@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang = "en-us">
 <head>
-	<title>To-Do List</title>
+	<title>To Do List</title>
 	<link type="text/css" rel="stylesheet" href="ToDoList.css"/> 
 </head>
 <body>
-	<div id="main">
-		<h4>To-Do List</h4>
-		<form name="inputForm" id="inputForm">
-			<input type="text" id="task" value="To-Do">
-			<input type="button" id="button" value = "ADD">
-			<br><br>
-		</form>
-		<div id="listBox" name="display">
-			<ul id ="taskList">Tasks:</ul>
+	<div>
+		<div class="container">
+			<h4>To-Do List</h4>
+			<form name="inputForm" id="inputForm">
+				<input type="text" id="txtbxNewTask" placeholder="To Do...">
+				<input type="button" id="btnAddNewTask" value="ADD">
+				<br><br>
+			</form>
+			<div id="listBox" name="display">
+				<ul id="taskList">Tasks:</ul>
+			</div>
 		</div>
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="/home/dylan/Documents/Forward Motion/ToDoList/ToDoList.js"></script> 
+	<script src="ToDoList.js"></script> 
 </body>
 </html>

@@ -2,8 +2,10 @@ body {
 	font-family: arial;
 }
 
-#main {
-	padding: 150px 450px;
+.container {
+	width: 20%;
+	margin: 0 auto;
+	padding-top: 10%;
 }
 
 /*Task bar and Add Button*/
@@ -16,7 +18,6 @@ body {
 	font-size: 12px;
 	border: 1px solid grey;
 	border-radius: 2px;
-	color: #808080;
 }
 
 #btnAddNewTask {

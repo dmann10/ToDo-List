@@ -8,7 +8,7 @@ $("#txtbxNewTask").focus(function() {
 $("#txtbxNewTask").blur(function() {
 	if($(this).val() == "") 
 	{
-		$(this).val("To-Do").css("color", "#808080");
+		$(this).val("");
 	}
 });
 
